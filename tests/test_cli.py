@@ -547,6 +547,12 @@ def test_unknown_backend_in_config_is_rejected(tmp_path):
 
 # ================================================ 规模提醒 / 后训练口径
 
+def _has_cuda():
+    """CI 是 CPU-only：涉及显存数字的断言要按机器能力分支。"""
+    import torch
+    return bool(torch.cuda.is_available())
+
+
 def test_plan_wires_scale_notice_and_reports_cards_for_huge_model():
     """B-05：规模提醒必须真的出现在 CLI plan 输出里（大模型提示需要 N 卡）。
 
@@ -561,15 +567,21 @@ def test_plan_wires_scale_notice_and_reports_cards_for_huge_model():
                     "--set", "train.batch_size=32",
                     timeout=600)
     assert code == 0, out
-    assert "显存估算合计" in out, out
-    assert "需要约" in out and "张同等显存的卡" in out, out
+    assert "合计估算" in out, out
+    if _has_cuda():
+        assert "需要约" in out and "张同等显存的卡" in out, out
+    else:
+        assert "当前可用显存  : 未知" in out, out
 
 
 def test_plan_small_config_reports_enough_memory():
     code, out = run("plan", "--config", "configs/nano65.ini", timeout=300)
     assert code == 0, out
-    assert "显存够用" in out, out
-    assert "张同等显存的卡" not in out, out
+    if _has_cuda():
+        assert "显存够用" in out, out
+        assert "张同等显存的卡" not in out, out
+    else:
+        assert "当前可用显存  : 未知" in out, out
 
 
 def test_plan_for_sft_uses_post_batch_and_seq():

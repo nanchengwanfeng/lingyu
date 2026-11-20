@@ -14,7 +14,7 @@
 - 13M～79M 五档配置可训；`train → sft → chat` 全链路可跑
 - GUI 10 页（概览/语料/训练/监控/分析/断点/对话/续写/微调/聊天/帮助 共 11 项导航）
 - 打包：`dist\LingYu\LingYu.exe` 单 exe 自解压安装器（29 MB）+ `runtime/` 运行时
-- 测试：**619 条全绿**（`pytest tests/`，32 个收集文件）
+- 测试：**620 条全绿**（`pytest tests/`，32 个收集文件）
 
 ---
 
@@ -40,7 +40,7 @@ src/lingyu/
 gui/                  PySide6；app.py 外壳 + TopBar/侧栏；pages/ 11 页；help_articles*.py 93 篇
 packaging/            launcher.py（自解压安装器）、build_exe.py、slim.py（瘦身）
 docs/                 DESIGN.md 权威设计、OPTIMIZATION*.md、TOKENIZER.md、KV_LONG_CONTEXT.md、本文
-tests/                619 条，按模块分文件
+tests/                620 条，按模块分文件
 configs/              small/medium/wide/moe/nano65/chat/chat_medium/sft 等出厂配置
 external_data/        alpaca_gpt4_zh.jsonl（SFT 中文数据，31 MB）
 ```
@@ -195,7 +195,7 @@ loss 40 步：7.0310（基线）/ 7.0315（重计算），属归约顺序差异�
 ```powershell
 # 源码侧
 cd C:\path\to\lingyu
-.\venv\Scripts\python.exe -m pytest tests -q          # 619 条
+.\venv\Scripts\python.exe -m pytest tests -q          # 620 条
 .\venv\Scripts\python.exe -m pytest tests\test_gui.py -q   # GUI 单测
 .\venv\Scripts\python.exe gui\audit.py                # 16 张审计截图
 .\venv\Scripts\python.exe -m lingyu doctor

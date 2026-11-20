@@ -859,6 +859,9 @@ def cmd_plan(args):
                                  active=None, n_layer=int(mc["n_layer"]),
                                  d_model=int(mc["d_model"])):
                 utils.info("  " + t)
+    else:
+        # CI / 无显卡机器：显存未知时如实说，别假装「够用」或「装不下」。
+        utils.info("当前可用显存  : 未知（未检测到 CUDA 或显存查询失败）")
 
     tps = bs * ga * blk
     utils.info("每步 token 数 : %s" % "{:,}".format(tps))

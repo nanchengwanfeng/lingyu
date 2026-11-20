@@ -101,7 +101,7 @@ lingyu-engine\                        ← 仓库根（开发 / 源码安装）
 │   ├── DESIGN.md                     本文件（唯一权威设计文档）
 │   ├── PROJECT_STATE.md              压缩后的权威状态快照（开发/发布背景）
 │   └── OPTIMIZATION*.md              2.1–2.6 / Round2–4 的优化实测记录
-├── tests/                            pytest 套件（32 个收集文件 / 619 条用例）
+├── tests/                            pytest 套件（32 个收集文件 / 620 条用例）
 │   ├── 配置：test_config_system 43 / test_config_integrity 39 / test_config_writeback 22
 │   ├── 核心：test_model_config 30 / test_model 9 / test_data 4 / test_train 18 / test_prepare 12
 │   ├── 生成与对话：test_chat 22 / test_chat_template 28 / test_sft 21 / test_tokenizer_roundtrip 8
@@ -534,7 +534,7 @@ chatml 的价值在**互通性**（和 HuggingFace 生态对接），所以两�
 
 ## 9. 测试策略（用户要求"不能有 bug"）
 
-当前测试共 **619 条**（32 个收集文件；`pytest tests -q`，其中含 5 条慢速端到端、GUI 84 条）。
+当前测试共 **620 条**（32 个收集文件；`pytest tests -q`，其中含 5 条慢速端到端、GUI 84 条）。
 
 | 层次 | 内容 | 何时跑 |
 |---|---|---|

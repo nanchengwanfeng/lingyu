@@ -6,7 +6,7 @@ trillions of parameters**. Chinese-first. Beginner-friendly. Honest about scale.
 [中文说明](README.zh-CN.md) · [Design doc](docs/DESIGN.md) · Apache-2.0
 
 **Status:** v0.4 — GUI, post-training, distributed *planning* and Windows
-packaging are in place. 619 tests passing.
+packaging are in place. 620 tests passing.
 
 > **Honest scope note:** multi-GPU/cluster **training is not implemented yet**
 > (planned, P3 remaining). `lingyu launch` only generates launch scripts;

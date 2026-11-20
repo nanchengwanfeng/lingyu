@@ -207,7 +207,7 @@ register("attention", "我的注意力", override=True)(我的注意力)
 ## 测试
 
 ```bash
-pytest tests/ -q            # 全部 619 条（含真跑一遍 train→sft→chat）
+pytest tests/ -q            # 全部 620 条（含真跑一遍 train→sft→chat）
 pytest tests/ -q -m "not slow"   # 跳过端到端，快得多
 ```
 
