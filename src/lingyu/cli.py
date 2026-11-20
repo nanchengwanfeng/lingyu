@@ -603,7 +603,7 @@ def cmd_prepare(args):
 
 
 # ---------------------------------------------------------------- params/plan
-def _load_tok_for_config(cfg):
+def _load_tok_for_config(cfg, required=True):
     from .config import get
     from .tokenizer import load_tokenizer
     tp = get(cfg, "data", "tokenizer_path", None)
@@ -612,10 +612,20 @@ def _load_tok_for_config(cfg):
         if dd:
             tp = os.path.join(dd, "tokenizer.txt")
     if not tp or not os.path.isfile(tp):
+        if not required:
+            # 估算类命令（params/plan）不强制要分词器：没跑过 prepare 的新用户
+            # 也应该能先看一眼模型结构。词表退化成 [model].vocab_size。
+            return None
         utils.err("找不到分词器（配置里 tokenizer_path = %s）" % tp)
         utils.err("先运行:  python -m lingyu prepare --raw <语料目录> --data <数据目录>")
         return None
     return load_tokenizer(tp)
+
+
+def _vocab_from_config(cfg):
+    """没有分词器时的词表大小：取 [model].vocab_size，缺省按 8192。"""
+    from .config import get
+    return int(get(cfg, "model", "vocab_size", 8192) or 8192)
 
 
 def _print_param_report_generic(model, mc):
@@ -749,10 +759,14 @@ def cmd_params(args):
         return 6
     from .model import config_from_section
     cfg = load_cfg(args.config, args.set)
-    tok = _load_tok_for_config(cfg)
+    tok = _load_tok_for_config(cfg, required=False)
     if tok is None:
-        return 1
-    mc = config_from_section(cfg.get("model", {}), tok.vocab_size)
+        vocab = _vocab_from_config(cfg)
+        utils.warn("找不到分词器，按 [model].vocab_size = %d 估算"
+                   "（先跑 prepare 可得到精确词表）" % vocab)
+    else:
+        vocab = tok.vocab_size
+    mc = config_from_section(cfg.get("model", {}), vocab)
     _print_param_report(mc, tok)
     return 0
 
@@ -785,10 +799,14 @@ def cmd_plan(args):
     from .config import get
     from .model import config_from_section
     cfg = load_cfg(args.config, args.set)
-    tok = _load_tok_for_config(cfg)
+    tok = _load_tok_for_config(cfg, required=False)
     if tok is None:
-        return 1
-    mc = config_from_section(cfg.get("model", {}), tok.vocab_size)
+        vocab = _vocab_from_config(cfg)
+        utils.warn("找不到分词器，按 [model].vocab_size = %d 估算"
+                   "（先跑 prepare 可得到精确词表）" % vocab)
+    else:
+        vocab = tok.vocab_size
+    mc = config_from_section(cfg.get("model", {}), vocab)
     total_real = _print_param_report(mc, tok)
 
     bs, ga, ms, blk, is_post = _plan_scope(cfg, mc)

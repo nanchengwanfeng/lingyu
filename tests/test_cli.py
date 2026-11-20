@@ -79,8 +79,26 @@ def test_no_args_prints_help_and_does_not_crash():
 
 def test_doctor_runs():
     code, out = run("doctor", timeout=300)
+    assert "Traceback" not in out, out
+    # CI 装的是 CPU 版 torch：doctor 会把它标成「环境不完整」并返回 1。
+    # 这是**预期行为**（提示用户装 CUDA 版），不能让测试因此失败。
+    import torch
+    cpu_only = getattr(torch.version, "cuda", None) is None
+    assert code in ((0, 1) if cpu_only else (0,)), out
+
+
+def test_plan_without_tokenizer_falls_back_to_config_vocab():
+    """没跑过 prepare 的新 clone：plan 也要能出估算，而不是直接报错退出。
+
+    分词器只影响词表大小；配置里本来就有 [model].vocab_size 可作估算依据。
+    """
+    code, out = run("plan", "--config", "configs/small.ini",
+                    "--set", "data.tokenizer_path=__missing__/tokenizer.txt",
+                    "--set", "data.data_dir=__missing__/data")
     assert code == 0, out
     assert "Traceback" not in out, out
+    assert "找不到分词器" in out, out
+    assert "词表" in out, out
 
 
 # ============================================================ params 不变式
