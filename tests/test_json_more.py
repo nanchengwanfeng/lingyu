@@ -85,12 +85,12 @@ def test_plan_json_event():
 
 def test_doctor_json_event():
     r = _run(["doctor", "--json"])
-    assert r.returncode == 0, r.stderr
+    # doctor 的退出码表达的是「环境有没有问题」：CPU 版 torch 在 CI 上是
+    # 有意装的合法环境，doctor 仍会如实给 exit 1 + ok=false（配套人类提示），
+    # 所以这里接受 0/1，真正要验证的是 JSON 事件本身的语义。
+    assert r.returncode in (0, 1), r.stderr
     ev = [e for e in _events(r.stdout) if e["event"] == "doctor"]
     assert ev and isinstance(ev[-1].get("ok"), bool)
-    # CPU 版 torch 是合法环境（CI 就是），doctor 会如实报 ok=false；
-    # 有 CUDA 编译版的机器才应该 ok=true。这里跟着实际环境断言，
-    # 而不是假设「本机一定有 GPU」。
     try:
         import torch
         cpu_build = getattr(torch.version, "cuda", None) is None
