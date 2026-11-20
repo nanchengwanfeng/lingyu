@@ -44,28 +44,42 @@ jobs:
           import xml.etree.ElementTree as ET
 
           summary = os.environ.get("GITHUB_STEP_SUMMARY", "")
+
+          def emit(text):
+              print(text)
+              if summary:
+                  try:
+                      with open(summary, "a", encoding="utf-8") as fh:
+                          fh.write(text + "\n")
+                  except OSError:
+                      pass
+
+          if not os.path.exists("report.xml"):
+              emit("::error title=pytest report missing::report.xml 没有生成，测试步骤可能提前崩溃")
+              sys.exit(1)
+
           try:
               root = ET.parse("report.xml").getroot()
           except Exception as exc:  # noqa: BLE001
-              print("cannot parse pytest report:", exc)
+              emit("::error title=pytest report unreadable::%s" % exc)
               sys.exit(1)
 
+          total = 0
           bad = []
           for case in root.iter("testcase"):
+              total += 1
               for tag in ("failure", "error"):
                   node = case.find(tag)
                   if node is not None:
                       message = (node.get("message") or "").strip().splitlines()
-                      head = message[0][:300] if message else ""
+                      head = message[0][:400] if message else tag
                       bad.append((case.get("classname"), case.get("name"), head))
 
-          lines = ["### pytest failures: %d" % len(bad)]
+          emit("### pytest: %d 个用例，%d 个失败" % (total, len(bad)))
           for cls, name, msg in bad:
-              lines.append("- `%s::%s` - %s" % (cls, name, msg))
-          text = "\n".join(lines)
-          print(text)
-          if summary:
-              with open(summary, "a", encoding="utf-8") as fh:
-                  fh.write(text + "\n")
+              emit("- `%s::%s` - %s" % (cls, name, msg))
+              safe = msg.replace("::", ": ").replace("\n", " ")
+              print("::error title=%s::%s :: %s" % (name, cls, safe))
+
           sys.exit(1 if bad else 0)
           PY
