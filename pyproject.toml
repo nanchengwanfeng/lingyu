@@ -1,0 +1,135 @@
+# ==========================================================================
+#  lingyu-lm —— 一个引擎，从 13M 到万亿参数
+#
+#  安装（开发模式，改代码立即生效）：
+#      pip install -e .
+#
+#  安装（含 GUI）：
+#      pip install -e ".[gui]"
+#
+#  ⚠️ PyTorch 不在 dependencies 里，这是**故意的**：
+#     CUDA 版本必须匹配你的显卡和驱动，让 pip 自己猜会装错（装成 CPU 版）。
+#     正确做法见 README 的「安装」一节，或用仓库里的 setup_env.ps1。
+# ==========================================================================
+
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "lingyu-lm"
+dynamic = ["version"]
+description = "An engine for training language models from 13M to trillions of parameters. Chinese-first, beginner-friendly, honest about scale."
+readme = "README.md"
+# 注意：打包启动器 packaging/launcher.py 目前只接受 3.10-3.12（PY_MAX=(3,12)）；
+# 3.13 要等对应 torch wheel 验证后再放开。
+requires-python = ">=3.10,<3.14"
+license = { text = "Apache-2.0" }
+authors = [{ name = "LingYu contributors" }]
+keywords = [
+    "llm", "language-model", "training", "nanogpt", "moe",
+    "mixture-of-experts", "chinese", "pytorch", "from-scratch",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Education",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Education",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Natural Language :: Chinese (Simplified)",
+    "Natural Language :: English",
+]
+
+# 运行核心只依赖 numpy。
+# 训练本身需要 torch，但**故意不写在这里**（见文件头说明）。
+dependencies = [
+    "numpy>=1.24",
+]
+
+[project.optional-dependencies]
+# GUI（PySide6 是 LGPL，不会传染你的项目 —— 选它而不是 GPL 的 PyQt6 就是为了这个）
+#
+# 用 Essentials 而不是完整的 PySide6：完整版会拖进 QtWebEngine、
+# Qt3D、QtMultimedia 等一大堆用不上的模块（多出 1GB 体积）。
+# 界面只用到 QtWidgets / QtGui / QtCore / QtSvg，Essentials 里都有。
+gui = ["PySide6-Essentials>=6.7"]
+# 画曲线、导出图表
+plot = ["matplotlib>=3.7"]
+# 导出 HuggingFace 格式时需要
+hf = ["transformers>=4.40", "tokenizers>=0.15"]
+# 监控
+monitor = ["tensorboard>=2.14"]
+# 配置用 YAML 时
+yaml = ["pyyaml>=6.0"]
+# 大模型后端
+distributed = ["deepspeed>=0.14"]
+# 开发
+dev = [
+    "pytest>=7.4",
+    "pytest-timeout>=2.2",
+    "ruff>=0.4",
+]
+# 全装
+all = [
+    "lingyu-lm[gui,plot,hf,monitor,yaml]",
+]
+
+[project.scripts]
+# 安装后可直接用 `lingyu` 命令
+lingyu = "lingyu.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/nanchengwanfeng/lingyu"
+Documentation = "https://github.com/nanchengwanfeng/lingyu/tree/main/docs"
+Repository = "https://github.com/nanchengwanfeng/lingyu"
+Issues = "https://github.com/nanchengwanfeng/lingyu/issues"
+Changelog = "https://github.com/nanchengwanfeng/lingyu/blob/main/CHANGELOG.md"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+# TODO(发布前): gui/、configs/、chat/ 目前不在 wheel 内（非 editable 安装后
+# `lingyu gui` 不可用）。待把 gui/ 移入 src/lingyu/gui 并用 importlib.resources
+# 读取数据后，再补 package-data。原 i18n/*.json、config/presets/*.ini 两个目录
+# 并不存在，已删除（详见审计报告 06-docs-tests.md）。
+
+[tool.setuptools.dynamic]
+version = { attr = "lingyu.version.__version__" }
+
+# ---------------------------------------------------------------- 代码风格
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+exclude = ["lingyu_old", "tools", "runtime", ".git", "_archive", "dist", "build", "wheels", "python312"]
+
+[tool.ruff.lint]
+# E501 行长超限不报（中文注释本来就可能长）
+# F401 未使用导入在 __init__.py 里是正常的
+ignore = ["E501"]
+select = ["E", "F", "W"]
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F401", "F403"]
+"tests/*" = ["E402", "F401", "E741", "F841", "E731"]
+
+# ---------------------------------------------------------------- 测试
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+# 端到端测试会真训练，给足时间
+timeout = 600
+addopts = "-q --tb=short"
+markers = [
+    "slow: 端到端测试（会真训练小模型，实测约 23 秒）",
+    "gpu: 需要 CUDA 显卡",
+]

@@ -1,0 +1,89 @@
+# ---------------------------------------------------------------- Python
+__pycache__/
+*.py[cod]
+*.so
+*.egg-info/
+.eggs/
+build/
+dist/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# ---------------------------------------------------------------- 虚拟环境
+venv/
+.venv/
+env/
+runtime/
+python312/
+wheels/
+
+# ---------------------------------------------------------------- 用户数据（绝不进 git）
+raw/
+data/
+data1/
+out/
+out_*/
+*.bin
+*.meta.json
+tokenizer.txt
+!tests/**/tokenizer.txt
+ckpt.pt
+best.pt
+*.pt.tmp
+
+# ---------------------------------------------------------------- 模型与日志
+*.pt
+*.pth
+*.safetensors
+*.gguf
+*.log
+*.csv
+!docs/**/*.csv
+
+# ---------------------------------------------------------------- 旧结构与临时
+# 已删除的平铺包与代码生成器：留一份归档以免不可恢复（本机当时还没装 git）。
+# 归档不进 git —— 它是历史产物，不是项目内容。
+_archive/
+lingyu_old/
+tools/_part_*.py
+tools/_sync_parts.py
+_vt/
+_测试数据_可删/
+_tok_test.tmp
+_tmp_*
+
+# ---------------------------------------------------------------- GUI 构建产物
+gui/build/
+gui/dist/
+*.spec
+# 界面截图（gui/shot.py 的产物）—— 开发时用来看长得对不对，不进仓库
+_shots/
+
+# ---------------------------------------------------------------- 编辑器
+.vscode/
+.idea/
+*.swp
+*~
+
+# ---------------------------------------------------------------- 系统
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# 开发期临时脚本 / 备份
+_archive/
+*.bak_scrub
+
+# 语料/外部数据（体积大，且与用户数据无关）
+external_data/
+
+# 本次会话的临时测试日志
+_*.log
+_iso_*
+_huge_plan*
+_cli_hang*
+_collect_*
+_pytest_*

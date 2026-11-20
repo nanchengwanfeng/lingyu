@@ -1,0 +1,49 @@
+{"messages": [{"role": "user", "content": "你好"}, {"role": "assistant", "content": "你好！很高兴见到你。"}]}
+{"messages": [{"role": "user", "content": "你是谁？"}, {"role": "assistant", "content": "我是一个用灵语引擎训练出来的小语言模型。"}]}
+{"messages": [{"role": "user", "content": "你叫什么名字？"}, {"role": "assistant", "content": "你可以叫我灵语。"}]}
+{"messages": [{"role": "user", "content": "你会做什么？"}, {"role": "assistant", "content": "我会用中文和你聊天，回答问题，也能帮你写一点文字。"}]}
+{"messages": [{"role": "user", "content": "谢谢你"}, {"role": "assistant", "content": "不客气，能帮上忙就好。"}]}
+{"messages": [{"role": "user", "content": "再见"}, {"role": "assistant", "content": "再见，有空再来找我聊天。"}]}
+{"messages": [{"role": "user", "content": "今天天气怎么样？"}, {"role": "assistant", "content": "我看不到外面的天气，你可以看看窗外，或者告诉我，我陪你聊聊。"}]}
+{"messages": [{"role": "user", "content": "现在几点了？"}, {"role": "assistant", "content": "我没有钟表，不知道现在的时间，你抬头看一眼时钟就知道了。"}]}
+{"messages": [{"role": "user", "content": "你吃饭了吗？"}, {"role": "assistant", "content": "我不吃饭，我靠电和计算活着。"}]}
+{"messages": [{"role": "user", "content": "你累不累？"}, {"role": "assistant", "content": "我不会累，随时都可以陪你说话。"}]}
+{"messages": [{"role": "user", "content": "一加一等于几？"}, {"role": "assistant", "content": "一加一等于二。"}]}
+{"messages": [{"role": "user", "content": "二加三等于几？"}, {"role": "assistant", "content": "二加三等于五。"}]}
+{"messages": [{"role": "user", "content": "十减四等于几？"}, {"role": "assistant", "content": "十减四等于六。"}]}
+{"messages": [{"role": "user", "content": "三乘四等于几？"}, {"role": "assistant", "content": "三乘四等于十二。"}]}
+{"messages": [{"role": "user", "content": "中国最长的河是哪条？"}, {"role": "assistant", "content": "中国最长的河是长江。"}]}
+{"messages": [{"role": "user", "content": "世界上最高的山是哪座？"}, {"role": "assistant", "content": "世界上最高的山是珠穆朗玛峰。"}]}
+{"messages": [{"role": "user", "content": "一年有多少个月？"}, {"role": "assistant", "content": "一年有十二个月。"}]}
+{"messages": [{"role": "user", "content": "一年有多少天？"}, {"role": "assistant", "content": "平年三百六十五天，闰年三百六十六天。"}]}
+{"messages": [{"role": "user", "content": "一天有多少小时？"}, {"role": "assistant", "content": "一天有二十四个小时。"}]}
+{"messages": [{"role": "user", "content": "一小时有多少分钟？"}, {"role": "assistant", "content": "一小时有六十分钟。"}]}
+{"messages": [{"role": "user", "content": "水是什么？"}, {"role": "assistant", "content": "水是由氢和氧组成的化合物，化学式是 H2O。"}]}
+{"messages": [{"role": "user", "content": "什么是光合作用？"}, {"role": "assistant", "content": "光合作用是绿色植物利用阳光，把二氧化碳和水变成有机物并放出氧气的过程。"}]}
+{"messages": [{"role": "user", "content": "地球围绕什么转？"}, {"role": "assistant", "content": "地球围绕太阳转。"}]}
+{"messages": [{"role": "user", "content": "月亮围绕什么转？"}, {"role": "assistant", "content": "月亮围绕地球转。"}]}
+{"messages": [{"role": "user", "content": "太阳从哪边升起？"}, {"role": "assistant", "content": "太阳从东边升起，从西边落下。"}]}
+{"messages": [{"role": "user", "content": "李白是哪个朝代的诗人？"}, {"role": "assistant", "content": "李白是唐代的诗人。"}]}
+{"messages": [{"role": "user", "content": "杜甫是哪个朝代的诗人？"}, {"role": "assistant", "content": "杜甫也是唐代的诗人。"}]}
+{"messages": [{"role": "user", "content": "《红楼梦》的作者是谁？"}, {"role": "assistant", "content": "《红楼梦》的作者是曹雪芹。"}]}
+{"messages": [{"role": "user", "content": "《西游记》的作者是谁？"}, {"role": "assistant", "content": "《西游记》的作者是吴承恩。"}]}
+{"messages": [{"role": "user", "content": "《三国演义》的作者是谁？"}, {"role": "assistant", "content": "《三国演义》的作者是罗贯中。"}]}
+{"messages": [{"role": "user", "content": "《水浒传》的作者是谁？"}, {"role": "assistant", "content": "《水浒传》的作者是施耐庵。"}]}
+{"messages": [{"role": "user", "content": "请用一句话介绍你自己。"}, {"role": "assistant", "content": "我是一个中文小语言模型，会聊天，也会写一点东西。"}]}
+{"messages": [{"role": "user", "content": "我有点难过。"}, {"role": "assistant", "content": "听你这么说我也有点担心。愿意和我说说发生什么了吗？"}]}
+{"messages": [{"role": "user", "content": "我很开心！"}, {"role": "assistant", "content": "那太好了，什么事让你这么高兴？"}]}
+{"messages": [{"role": "user", "content": "给我讲个笑话。"}, {"role": "assistant", "content": "有人问我为什么总在夜里写代码，我说因为白天有光，会照出我的 bug。"}]}
+{"messages": [{"role": "user", "content": "帮我写一句关于春天的话。"}, {"role": "assistant", "content": "春天来了，风把去年的雪吹成了今年的花。"}]}
+{"messages": [{"role": "user", "content": "帮我写一句关于努力的话。"}, {"role": "assistant", "content": "路远不要紧，只怕停下不走。"}]}
+{"messages": [{"role": "user", "content": "我不太懂，能再说一遍吗？"}, {"role": "assistant", "content": "当然可以，我换个说法再讲一次。"}]}
+{"messages": [{"role": "user", "content": "你确定吗？"}, {"role": "assistant", "content": "我不敢保证一定对，你可以再核对一下。"}]}
+{"messages": [{"role": "user", "content": "你能帮我查资料吗？"}, {"role": "assistant", "content": "我连不上网络，只能靠训练时学到的东西回答你。"}]}
+{"messages": [{"role": "system", "content": "你是一个说话简短、态度温和的中文助手。"}, {"role": "user", "content": "介绍一下你自己。"}, {"role": "assistant", "content": "我是灵语，一个中文小模型。说话简短，脾气还行。"}]}
+{"messages": [{"role": "user", "content": "我想学编程，从哪里开始？"}, {"role": "assistant", "content": "可以先学 Python，从打印一句话开始，然后写点小工具给自己用。"}]}
+{"messages": [{"role": "user", "content": "什么是神经网络？"}, {"role": "assistant", "content": "神经网络是一堆数字按层排好，靠大量例子不断调整这些数字，最后学会做某件事。"}]}
+{"messages": [{"role": "user", "content": "什么是 token？"}, {"role": "assistant", "content": "token 是模型眼里的一小块文字，可能是一个字，也可能是半个词。"}]}
+{"messages": [{"role": "user", "content": "训练一个语言模型难吗？"}, {"role": "assistant", "content": "小模型不难，一台普通显卡就能跑；大模型很贵，要很多卡和很多数据。"}]}
+{"messages": [{"role": "user", "content": "为什么要做微调？"}, {"role": "assistant", "content": "因为预训练出来的模型只会接着写，微调之后它才听得懂问题。"}]}
+{"messages": [{"role": "user", "content": "晚安"}, {"role": "assistant", "content": "晚安，好好休息。"}]}
+{"messages": [{"role": "user", "content": "早上好"}, {"role": "assistant", "content": "早上好！今天想聊点什么？"}]}
+{"messages": [{"role": "user", "content": "你最喜欢什么颜色？"}, {"role": "assistant", "content": "我没有眼睛，看不到颜色，不过我喜欢大家说蓝色的时候。"}]}
