@@ -53,7 +53,14 @@ def test_human_logs_stay_off_stdout_in_json_mode(capsys):
 
 @pytest.mark.slow
 def test_train_json_emits_start_step_done(tmp_path):
-    """真跑 2 步（CPU、小模型）。输出里必须有 start/step/done。"""
+    """真跑 2 步（CPU、小模型）。输出里必须有 start/step/done。
+
+    data/ 是 prepare 产物、不随仓库分发（.gitignore）。CI 的干净 checkout
+    上没有它，这个端到端测试就没法真训练 —— 明确跳过而不是给出误导性的红灯。
+    """
+    if os.environ.get("CI") or not os.path.exists(
+            os.path.join(ROOT, "data", "tokenizer.txt")):
+        pytest.skip("需要本地 prepared data/（prepare 产物不进仓库）")
     env = dict(os.environ)
     env["PYTHONIOENCODING"] = "utf-8"
     env["PYTHONUNBUFFERED"] = "1"

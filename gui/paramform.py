@@ -141,6 +141,11 @@ class ParamForm(QWidget):
                 tabs.setCurrentIndex(i)
                 break
 
+        # ★ 跨页再统一一次：上面每个 tier 页各自 unify，不同页的标签列宽度
+        #   可能不同（Linux 字体下实测 99 vs 109），切页时左边缘会轻微跳动。
+        #   全表单取同一个宽度，三页的输入框左边缘才完全对齐。
+        unify_labels(list(self.fields.values()))
+
     # ------------------------------------------------------------ 构建
     def _build_page(self, items, values):
         scroll = QScrollArea()

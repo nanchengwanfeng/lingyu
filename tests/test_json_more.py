@@ -87,5 +87,14 @@ def test_doctor_json_event():
     r = _run(["doctor", "--json"])
     assert r.returncode == 0, r.stderr
     ev = [e for e in _events(r.stdout) if e["event"] == "doctor"]
-    assert ev and ev[-1]["ok"] is True
+    assert ev and isinstance(ev[-1].get("ok"), bool)
+    # CPU 版 torch 是合法环境（CI 就是），doctor 会如实报 ok=false；
+    # 有 CUDA 编译版的机器才应该 ok=true。这里跟着实际环境断言，
+    # 而不是假设「本机一定有 GPU」。
+    try:
+        import torch
+        cpu_build = getattr(torch.version, "cuda", None) is None
+    except Exception:
+        cpu_build = True
+    assert ev[-1]["ok"] is (not cpu_build), ev[-1]
     assert ev[-1]["python"]
